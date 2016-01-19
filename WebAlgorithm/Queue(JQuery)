@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Philosophers</title>
+
+<script src="./_js/jquery-1.11.2.min.js"></script>
+<script src="./_js/jquery.easing.1.3.js"></script>
+<link rel="stylesheet" type="text/css" href="./MainPageStyle.css">
+
+<script>
+	$(document).ready(function(){
+		var leftsidedivcolor;
+		var leftsidedivcolortext;
+		var leftsidedivleft = 0;
+		var rightsidedivleft = $('#rightside').css('left');
+		
+		$('#leftside div').click(function(){
+			
+			var url=$(this).attr('href');
+     		$('#rightside').load(url + '#newsItem');
+     		//load right side page 
+     		
+     		return false;
+	
+		});//end of click
+		
+		$('#leftside div').mouseover(function(){
+			var mouseoverthis=$(this);
+			leftsidedivcolor=mouseoverthis.css('backgroundColor');
+			leftsidedivcolortext=mouseoverthis.children().css('color');
+			mouseoverthis.css('backgroundColor','rgb(0,0,0)');
+			mouseoverthis.children().css('color','white');
+					
+		});//end of mouseover
+		
+		$('#leftside div').mouseout(function(){
+			var mouseoutthis=$(this);
+			mouseoutthis.css('backgroundColor',leftsidedivcolor);
+			mouseoutthis.children().css('color',leftsidedivcolortext);
+			
+		});//end of mouseout  
+		
+		
+		$('#leftside div').hover(
+			function(){
+				
+				$(this).stop().animate(
+					{
+						left : "12%"
+					}, 
+					400, 
+					"linear").queue(function(){
+						
+						$('#rightside').css('background-color','rgb(100,100,100)');//end of css 
+								
+					})//end of animate
+					   
+			},//move in
+			
+			function(){
+				
+				$('#rightside').css('background-color','rgb(50,50,50)').queue(function(){
+					$('#leftside div').stop().animate(
+							{
+								left : "0%"
+							},
+							400, 
+							"linear");
+					
+					$(this).dequeue();	
+				});//end of css 
+				
+				$(this).dequeue();
+			}//move out	
+		
+		);//end of hover 
+		
+		
+	});//end of ready
+</script>
+</head>
+
+<body>
+	
+	<div id="top">
+		<h1>
+			Philosophers
+		</h1>
+	</div>
+	
+	<div id="main">
+		<div id="leftside">
+				
+			<div> 
+				<a href = "weeks.html">Year</a>
+			</div>
+			<div> 
+				<a href = "weeks.html">Week</a>
+			</div>
+			<div> 
+				<a href = "weeks.html">Day</a>
+			</div>
+			
+		</div>
+		<div id="rightside">
+			<div>
+			
+			
+			</div>
+		</div>
+	</div>	
+	<br>
+	<div id="footer">
+		<span>Created by yongwoon.jang</span> 
+	</div>
+
+</body>
+</html>
